@@ -19,7 +19,7 @@ public class CBPurchase: NSObject {
 
     private var restoredPurchasesCount = 0
     private var activeProduct: SKProduct?
-    var customerID: String = ""
+    var customerInfo: CBCustomerInfo?
 
     // MARK: - Init
     private override init() {
@@ -103,10 +103,17 @@ public extension CBPurchase {
     }
 
     //Buy the product
-    func purchaseProduct(product: CBProduct, customerId : String? = "" ,completion handler: @escaping ((_ result: Result<(status:Bool, subscriptionId:String?, planId:String?), Error>) -> Void)) {
+    func purchaseProduct(product: CBProduct, customerId : String? = "",first_name : String? = "",last_name: String? = "", email: String? = "" ,completion handler: @escaping ((_ result: Result<(status:Bool, subscriptionId:String?, planId:String?), Error>) -> Void)) {
         buyProductHandler = handler
         activeProduct = product.product
-        customerID = customerId ?? ""
+        if let custID = customerId ,
+           let fname = first_name ,
+           let lName = last_name ,
+           let email_Id = email {
+            customerInfo = CBCustomerInfo(customerId: custID, first_name: fname, last_name: lName, email:email_Id)
+        }
+
+        
         guard CBAuthenticationManager.isSDKKeyPresent() else {
             handler(.failure(CBPurchaseError.cannotMakePayments))
             return
@@ -265,7 +272,9 @@ public extension CBPurchase {
 
             let receiptString = receiptData.base64EncodedString(options: [])
             debugPrint("Apple Purchase - success")
-            let receipt = CBReceipt(name: product.localizedTitle, token: receiptString, productID: product.productIdentifier, price: "\(product.price)", currencyCode: currencyCode, customerId: self.customerID, period: period, periodUnit: Int(unit))
+
+        let receipt = CBReceipt(name: product.localizedTitle, token: receiptString, productID: product.productIdentifier, price: "\(product.price)", currencyCode: currencyCode, customerId: customerInfo?.customerId ?? "", period: period, periodUnit: Int(unit), first_name: customerInfo?.first_name ?? "", last_name: customerInfo?.last_name ?? "", email: customerInfo?.email ?? "")
+
             CBReceiptValidationManager.validateReceipt(receipt: receipt) {
                 (receiptResult) in DispatchQueue.main.async {
                     switch receiptResult {
