@@ -276,14 +276,6 @@ public extension CBPurchase {
 
         let receipt = CBReceipt(name: product.localizedTitle, token: receiptString, productID: product.productIdentifier, price: "\(product.price)", currencyCode: currencyCode, customerId: customerInfo?.customerId ?? "", period: period, periodUnit: Int(unit), first_name: customerInfo?.first_name ?? "", last_name: customerInfo?.last_name ?? "", email: customerInfo?.email ?? "")
             
-            print("receipt.first_name: ",receipt.first_name)
-            print("receipt.last_name: ",receipt.last_name)
-            print("receipt.email: ",receipt.email)
-            print("receipt.customer_Id: ",receipt.customerId)
-
-
-
-
             CBReceiptValidationManager.validateReceipt(receipt: receipt) {
                 (receiptResult) in DispatchQueue.main.async {
                     switch receiptResult {
