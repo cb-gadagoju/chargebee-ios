@@ -26,6 +26,10 @@ extension CBNetworkRequest {
                 onError?(self.buildCBError(data, statusCode: response.statusCode))
                 return
             }
+            if let response = response as? HTTPURLResponse, response.statusCode >= 500 {
+                onError?(self.buildCBError(data, statusCode: response.statusCode))
+                return
+            }
             guard let data = data,
                   let decodedData = self.decode(data) else {
                 onError?(CBError.defaultSytemError(statusCode: 400, message: "Response has no/invalid body"))

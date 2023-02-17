@@ -30,6 +30,9 @@
 		FA3ECF3524B6FA6C00643E63 /* CBSDKTokenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3ECF3424B6FA6C00643E63 /* CBSDKTokenViewController.swift */; };
 		FA3ECF3724B6FDE300643E63 /* CBSDKPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3ECF3624B6FDE300643E63 /* CBSDKPlanViewController.swift */; };
 		FA3ECF3924B6FDED00643E63 /* CBSDKAddonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3ECF3824B6FDED00643E63 /* CBSDKAddonViewController.swift */; };
+		FB0161F72996415D00EEE86B /* NetworkListner.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0161F42996415D00EEE86B /* NetworkListner.swift */; };
+		FB0161F82996415D00EEE86B /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0161F52996415D00EEE86B /* Reachability.swift */; };
+		FB0161FA299641DE00EEE86B /* CBDemoPersistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0161F9299641DE00EEE86B /* CBDemoPersistance.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +69,9 @@
 		FA3ECF3424B6FA6C00643E63 /* CBSDKTokenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CBSDKTokenViewController.swift; sourceTree = "<group>"; };
 		FA3ECF3624B6FDE300643E63 /* CBSDKPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CBSDKPlanViewController.swift; sourceTree = "<group>"; };
 		FA3ECF3824B6FDED00643E63 /* CBSDKAddonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CBSDKAddonViewController.swift; sourceTree = "<group>"; };
+		FB0161F42996415D00EEE86B /* NetworkListner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkListner.swift; sourceTree = "<group>"; };
+		FB0161F52996415D00EEE86B /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		FB0161F9299641DE00EEE86B /* CBDemoPersistance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CBDemoPersistance.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +167,7 @@
 		607FACD21AFB9204008FA782 /* Example for Chargebee */ = {
 			isa = PBXGroup;
 			children = (
+				FB0161FB2996443E00EEE86B /* RetryValidation */,
 				201D6DB326858EEE00EE8DF4 /* Resources */,
 				201D6DB026858EA900EE8DF4 /* Controller */,
 				201D6DAF26858E9F00EE8DF4 /* Views */,
@@ -200,6 +207,25 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		FB0161F029963FEA00EEE86B /* InternetObserver */ = {
+			isa = PBXGroup;
+			children = (
+				FB0161F42996415D00EEE86B /* NetworkListner.swift */,
+				FB0161F52996415D00EEE86B /* Reachability.swift */,
+			);
+			name = InternetObserver;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		FB0161FB2996443E00EEE86B /* RetryValidation */ = {
+			isa = PBXGroup;
+			children = (
+				FB0161F029963FEA00EEE86B /* InternetObserver */,
+				FB0161F9299641DE00EEE86B /* CBDemoPersistance.swift */,
+			);
+			path = RetryValidation;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -234,7 +260,6 @@
 				TargetAttributes = {
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
-						DevelopmentTeam = 5QPY897A4W;
 						LastSwiftMigration = 1330;
 						ProvisioningStyle = Automatic;
 					};
@@ -327,14 +352,17 @@
 				FA3ECF3924B6FDED00643E63 /* CBSDKAddonViewController.swift in Sources */,
 				851009C0265BDA4B00B6A12E /* CBSDKProductTableViewCell.swift in Sources */,
 				FA3ECF3524B6FA6C00643E63 /* CBSDKTokenViewController.swift in Sources */,
+				FB0161F72996415D00EEE86B /* NetworkListner.swift in Sources */,
 				851009CB265BE7E000B6A12E /* CBSDKConfigurationViewController.swift in Sources */,
 				90C8D07E26A9CB260004EE81 /* CBSDKItemTableViewCell.swift in Sources */,
 				FA3ECF3724B6FDE300643E63 /* CBSDKPlanViewController.swift in Sources */,
 				607FACD81AFB9204008FA782 /* CBSDKOptionsViewController.swift in Sources */,
 				90C8D08626AAA8480004EE81 /* CBSDKItemViewController.swift in Sources */,
 				D4FAC01726EA7D0400577895 /* UIView.swift in Sources */,
+				FB0161FA299641DE00EEE86B /* CBDemoPersistance.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				D4FAC01A26EA7D3D00577895 /* CBSDKPlanTableViewCell.swift in Sources */,
+				FB0161F82996415D00EEE86B /* Reachability.swift in Sources */,
 				20CCB493265ACAAD003E7AAD /* CBSDKProductsTableViewController.swift in Sources */,
 				90C8D08026A9CDC10004EE81 /* CBSDKItemsTableViewController.swift in Sources */,
 				20CCB4B5265BB090003E7AAD /* CBSDKSubscriptionStatusViewController.swift in Sources */,
