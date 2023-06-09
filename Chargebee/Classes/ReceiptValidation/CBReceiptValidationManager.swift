@@ -60,6 +60,8 @@ struct CBReceipt {
     let periodUnit:Int
     let customer: CBCustomer?
     let productType: ProductType?
+    let introductoryOffer:CBProductDiscountIntroOffers?
+
 }
 
 class CBReceiptValidationManager {

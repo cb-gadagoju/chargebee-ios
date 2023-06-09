@@ -21,6 +21,8 @@ public class CBPurchase: NSObject {
     var restoredPurchasesCount = 0
     private var activeProduct: CBProduct?
     var customer: CBCustomer?
+    var introOffers: CBProductDiscountIntroOffers?
+
     
     var restoreResponseHandler: ((Result<[InAppSubscription], RestoreError>) -> Void)?
     var refreshHandler: RestoreResultCompletion<String>?
@@ -184,6 +186,7 @@ extension CBPurchase {
 extension CBPurchase: SKProductsRequestDelegate {
     public func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
         debugPrint("response: \(response)")
+        
         let products = response.products.cbProducts
         if products.isEmpty {
             receiveProductsHandler?(.failure(.productsNotFound))
@@ -351,13 +354,19 @@ public extension CBPurchase {
             
             let receiptString = receiptData.base64EncodedString(options: [])
             debugPrint("Apple Purchase - success")
-            receipt = CBReceipt(name: product.localizedTitle, token: receiptString, productID: product.productIdentifier, price: "\(product.price)", currencyCode: currencyCode, period: product.subscriptionPeriod?.numberOfUnits ?? 0, periodUnit: Int(product.subscriptionPeriod?.unit.rawValue ?? 0),customer: customer,productType: self.productType ?? .unknown)
+            
+            // Intro_Offers
+        
+                 introOffers = CBProductDiscountIntroOffers(price: product.cbProduct.product.introductoryPrice?.localizedPrice, type: product.cbProduct.product.introductoryPrice?.localizedPaymentMode, period: product.cbProduct.product.introductoryPrice?.localizedSubscriptionPeriod)
+    
+            
+            receipt = CBReceipt(name: product.localizedTitle, token: receiptString, productID: product.productIdentifier, price: "\(product.price)", currencyCode: currencyCode, period: product.subscriptionPeriod?.numberOfUnits ?? 0, periodUnit: Int(product.subscriptionPeriod?.unit.rawValue ?? 0),customer: customer,productType: self.productType ?? .unknown,introductoryOffer: introOffers)
         }catch {
             print("Couldn't read receipt data with error: " + error.localizedDescription)
         }
         return receipt
     }
-    
+
     private func invokeProductHandler(forProduct product: SKProduct?, error: CBPurchaseError) {
         if let _ = product?.subscriptionPeriod {
             buyProductHandler?(.failure(error))
@@ -373,3 +382,91 @@ class SKProductsRequestFactory {
     }
 
 }
+
+//extension SKProduct
+//{
+//
+//    var localizedPrice: String? {
+//        return priceFormatter(locale: priceLocale).string(from: price)
+//    }
+//
+//    private func priceFormatter(locale: Locale) -> NumberFormatter {
+//        let formatter = NumberFormatter()
+//        formatter.locale = locale
+//        formatter.numberStyle = .currency
+//        return formatter
+//    }
+//
+//    @available(iOSApplicationExtension 11.2, iOS 11.2, OSX 10.13.2, tvOS 11.2, watchOS 6.2, macCatalyst 13.0, *)
+//    var localizedSubscriptionPeriod: String {
+//        guard let subscriptionPeriod = self.subscriptionPeriod else { return "" }
+//
+//        let dateComponents: DateComponents
+//
+//        switch subscriptionPeriod.unit {
+//        case .day: dateComponents = DateComponents(day: subscriptionPeriod.numberOfUnits)
+//        case .week: dateComponents = DateComponents(weekOfMonth: subscriptionPeriod.numberOfUnits)
+//        case .month: dateComponents = DateComponents(month: subscriptionPeriod.numberOfUnits)
+//        case .year: dateComponents = DateComponents(year: subscriptionPeriod.numberOfUnits)
+//        @unknown default:
+//            print("WARNING: SwiftyStoreKit localizedSubscriptionPeriod does not handle all SKProduct.PeriodUnit cases.")
+//            // Default to month units in the unlikely event a different unit type is added to a future OS version
+//            dateComponents = DateComponents(month: subscriptionPeriod.numberOfUnits)
+//        }
+//
+//        return DateComponentsFormatter.localizedString(from: dateComponents, unitsStyle: .short) ?? ""
+//    }
+//}
+
+
+public extension SKProductDiscount {
+    
+    /// The formatted discount price of the product using the local currency.
+    var localizedPrice: String? {
+        return priceFormatter(locale: priceLocale).string(from: price)
+    }
+    
+    private func priceFormatter(locale: Locale) -> NumberFormatter {
+        let formatter = NumberFormatter()
+        formatter.locale = locale
+        formatter.numberStyle = .currency
+        return formatter
+    }
+    
+    /// The formatted, localized period / date for the product discount.
+    /// - note: The subscription period for the discount is independent of the product's regular subscription period, and does not have to match in units or duration.
+    var localizedSubscriptionPeriod: String {
+        let dateComponents: DateComponents
+        
+        switch subscriptionPeriod.unit {
+        case .day: dateComponents = DateComponents(day: subscriptionPeriod.numberOfUnits)
+        case .week: dateComponents = DateComponents(weekOfMonth: subscriptionPeriod.numberOfUnits)
+        case .month: dateComponents = DateComponents(month: subscriptionPeriod.numberOfUnits)
+        case .year: dateComponents = DateComponents(year: subscriptionPeriod.numberOfUnits)
+        @unknown default:
+            print("WARNING: SwiftyStoreKit localizedSubscriptionPeriod does not handle all SKProduct.PeriodUnit cases.")
+            // Default to month units in the unlikely event a different unit type is added to a future OS version
+            dateComponents = DateComponents(month: subscriptionPeriod.numberOfUnits)
+        }
+        return DateComponentsFormatter.localizedString(from: dateComponents, unitsStyle: .full) ?? ""
+    }
+    
+    var localizedPaymentMode: String{
+        switch paymentMode {
+        case .payAsYouGo:
+            return "payAsYouGo"
+        case .payUpFront:
+            return "payUpFront"
+        case .freeTrial:
+            return "freeTrial"
+        @unknown default:
+            return "unknown"
+        }
+    }
+    
+}
+
+
+
+
+

@@ -29,8 +29,8 @@
 		FA3ECF3524B6FA6C00643E63 /* CBSDKTokenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3ECF3424B6FA6C00643E63 /* CBSDKTokenViewController.swift */; };
 		FA3ECF3724B6FDE300643E63 /* CBSDKPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3ECF3624B6FDE300643E63 /* CBSDKPlanViewController.swift */; };
 		FA3ECF3924B6FDED00643E63 /* CBSDKAddonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3ECF3824B6FDED00643E63 /* CBSDKAddonViewController.swift */; };
-		FB2113E529E5CB2E00BE0ED2 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB2113E429E5CB2E00BE0ED2 /* StoreKit.framework */; };
-		FB92295429E5B81B0005CA88 /* SwiftyReachability in Frameworks */ = {isa = PBXBuildFile; productRef = FB92295329E5B81B0005CA88 /* SwiftyReachability */; };
+		FB46F8532A2DE398007AF0B8 /* SwiftyReachability in Frameworks */ = {isa = PBXBuildFile; productRef = FB46F8522A2DE398007AF0B8 /* SwiftyReachability */; };
+		FB774B772A2F9345008D1921 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB774B762A2F9345008D1921 /* StoreKit.framework */; };
 		FB9A219A29E410FF001EFD95 /* Chargebee.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BF2D53329A3C6F400E22D21 /* Chargebee.framework */; };
 		FBB59E8329B20B4900B75EF2 /* CBDemoPersistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB59E8129B20B4900B75EF2 /* CBDemoPersistance.swift */; };
 /* End PBXBuildFile section */
@@ -94,7 +94,7 @@
 		FA3ECF3424B6FA6C00643E63 /* CBSDKTokenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CBSDKTokenViewController.swift; sourceTree = "<group>"; };
 		FA3ECF3624B6FDE300643E63 /* CBSDKPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CBSDKPlanViewController.swift; sourceTree = "<group>"; };
 		FA3ECF3824B6FDED00643E63 /* CBSDKAddonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CBSDKAddonViewController.swift; sourceTree = "<group>"; };
-		FB2113E429E5CB2E00BE0ED2 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		FB774B762A2F9345008D1921 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		FBB59E8129B20B4900B75EF2 /* CBDemoPersistance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CBDemoPersistance.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -103,9 +103,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FB2113E529E5CB2E00BE0ED2 /* StoreKit.framework in Frameworks */,
+				FB774B772A2F9345008D1921 /* StoreKit.framework in Frameworks */,
 				FB9A219A29E410FF001EFD95 /* Chargebee.framework in Frameworks */,
-				FB92295429E5B81B0005CA88 /* SwiftyReachability in Frameworks */,
+				FB46F8532A2DE398007AF0B8 /* SwiftyReachability in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,7 +236,7 @@
 		AAD4F8DC1372EE4D1A09D929 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				FB2113E429E5CB2E00BE0ED2 /* StoreKit.framework */,
+				FB774B762A2F9345008D1921 /* StoreKit.framework */,
 				2BF2D52D29A3C6F400E22D21 /* Chargebee.xcodeproj */,
 				2172435AB6EDB8C0EB2804F6 /* Pods_Chargebee_Example.framework */,
 				F7312AE4F79735117B94AC47 /* Pods_Chargebee_Tests.framework */,
@@ -272,7 +272,7 @@
 			);
 			name = "Chargebee Example";
 			packageProductDependencies = (
-				FB92295329E5B81B0005CA88 /* SwiftyReachability */,
+				FB46F8522A2DE398007AF0B8 /* SwiftyReachability */,
 			);
 			productName = Chargebee;
 			productReference = 607FACD01AFB9204008FA782 /* Chargebee Example.app */;
@@ -305,7 +305,7 @@
 			);
 			mainGroup = 607FACC71AFB9204008FA782;
 			packageReferences = (
-				FB92295229E5B81B0005CA88 /* XCRemoteSwiftPackageReference "SwiftyReachability" */,
+				FB46F8512A2DE398007AF0B8 /* XCRemoteSwiftPackageReference "SwiftyReachability" */,
 			);
 			productRefGroup = 607FACD11AFB9204008FA782 /* Products */;
 			projectDirPath = "";
@@ -381,7 +381,7 @@
 		};
 		153FF0938DA9A89FF4740119 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputPaths = (
@@ -637,20 +637,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		FB92295229E5B81B0005CA88 /* XCRemoteSwiftPackageReference "SwiftyReachability" */ = {
+		FB46F8512A2DE398007AF0B8 /* XCRemoteSwiftPackageReference "SwiftyReachability" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/antonio-war/SwiftyReachability";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
+				branch = master;
+				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		FB92295329E5B81B0005CA88 /* SwiftyReachability */ = {
+		FB46F8522A2DE398007AF0B8 /* SwiftyReachability */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = FB92295229E5B81B0005CA88 /* XCRemoteSwiftPackageReference "SwiftyReachability" */;
+			package = FB46F8512A2DE398007AF0B8 /* XCRemoteSwiftPackageReference "SwiftyReachability" */;
 			productName = SwiftyReachability;
 		};
 /* End XCSwiftPackageProductDependency section */
