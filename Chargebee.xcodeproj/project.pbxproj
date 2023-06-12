@@ -53,7 +53,6 @@
 		2BF2D50B29A3B8EE00E22D21 /* chargebee_iosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF2D50329A3B8EE00E22D21 /* chargebee_iosTests.swift */; };
 		2BF2D52629A3C29500E22D21 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BF2D52529A3C29500E22D21 /* Foundation.framework */; };
 		FB29A4FD29C03DA400D3B78B /* CBValidateNonSubscriptionResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB29A4FC29C03DA400D3B78B /* CBValidateNonSubscriptionResource.swift */; };
-		FB50364E2A25CBAE00C51762 /* ProductDiscount.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB50364D2A25CBAE00C51762 /* ProductDiscount.swift */; };
 		FB5363E729BEDF6400E3AC9A /* CBPurchaseManager+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5363E629BEDF6400E3AC9A /* CBPurchaseManager+Extension.swift */; };
 		FB5363E929BEE1BC00E3AC9A /* CBRestorePurchaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5363E829BEE1BC00E3AC9A /* CBRestorePurchaseManager.swift */; };
 		FB5363EB29BEE25600E3AC9A /* CBRestorePurchaseResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5363EA29BEE25600E3AC9A /* CBRestorePurchaseResource.swift */; };
@@ -119,7 +118,6 @@
 		2BF2D50329A3B8EE00E22D21 /* chargebee_iosTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = chargebee_iosTests.swift; sourceTree = "<group>"; };
 		2BF2D52529A3C29500E22D21 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		FB29A4FC29C03DA400D3B78B /* CBValidateNonSubscriptionResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CBValidateNonSubscriptionResource.swift; sourceTree = "<group>"; };
-		FB50364D2A25CBAE00C51762 /* ProductDiscount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDiscount.swift; sourceTree = "<group>"; };
 		FB5363E629BEDF6400E3AC9A /* CBPurchaseManager+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CBPurchaseManager+Extension.swift"; sourceTree = "<group>"; };
 		FB5363E829BEE1BC00E3AC9A /* CBRestorePurchaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CBRestorePurchaseManager.swift; sourceTree = "<group>"; };
 		FB5363EA29BEE25600E3AC9A /* CBRestorePurchaseResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CBRestorePurchaseResource.swift; sourceTree = "<group>"; };
@@ -193,7 +191,6 @@
 		2BF2D4A529A3B8E300E22D21 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				FB50364C2A25CB9200C51762 /* New Group */,
 				FB5363E129BB3A2700E3AC9A /* Restore */,
 				2BF2D4A629A3B8E300E22D21 /* Token */,
 				2BF2D4AF29A3B8E300E22D21 /* Configuration */,
@@ -370,14 +367,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		FB50364C2A25CB9200C51762 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-				FB50364D2A25CBAE00C51762 /* ProductDiscount.swift */,
-			);
-			path = "New Group";
-			sourceTree = "<group>";
-		};
 		FB5363E129BB3A2700E3AC9A /* Restore */ = {
 			isa = PBXGroup;
 			children = (
@@ -507,7 +496,6 @@
 				2BF2D4F929A3B8E300E22D21 /* CBAuthentication.swift in Sources */,
 				2BF2D4EE29A3B8E300E22D21 /* CBEntitlementResource.swift in Sources */,
 				2BF2D4F529A3B8E300E22D21 /* CBProductsV2.swift in Sources */,
-				FB50364E2A25CBAE00C51762 /* ProductDiscount.swift in Sources */,
 				2BF2D4E529A3B8E300E22D21 /* CBValidateReceiptResource.swift in Sources */,
 				2BA8938329B0D2B40032DBD2 /* CBCustomer.swift in Sources */,
 				2BF2D4DE29A3B8E300E22D21 /* StripeTokenizer.swift in Sources */,

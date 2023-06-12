@@ -354,12 +354,11 @@ public extension CBPurchase {
             
             let receiptString = receiptData.base64EncodedString(options: [])
             debugPrint("Apple Purchase - success")
-            
-            // Intro_Offers
-        
-                 introOffers = CBProductDiscountIntroOffers(price: product.cbProduct.product.introductoryPrice?.localizedPrice, type: product.cbProduct.product.introductoryPrice?.localizedPaymentMode, period: product.cbProduct.product.introductoryPrice?.localizedSubscriptionPeriod)
-    
-            
+                    
+            if let introPrice = product.cbProduct.product.introductoryPrice?.price {
+                introOffers = CBProductDiscountIntroOffers(price: "\(introPrice)", type: product.cbProduct.product.introductoryPrice?.localizedPaymentMode, period: product.cbProduct.product.introductoryPrice?.localizedSubscriptionPeriod)
+            }
+
             receipt = CBReceipt(name: product.localizedTitle, token: receiptString, productID: product.productIdentifier, price: "\(product.price)", currencyCode: currencyCode, period: product.subscriptionPeriod?.numberOfUnits ?? 0, periodUnit: Int(product.subscriptionPeriod?.unit.rawValue ?? 0),customer: customer,productType: self.productType ?? .unknown,introductoryOffer: introOffers)
         }catch {
             print("Couldn't read receipt data with error: " + error.localizedDescription)
