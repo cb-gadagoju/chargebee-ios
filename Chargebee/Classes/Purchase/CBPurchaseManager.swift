@@ -355,8 +355,8 @@ public extension CBPurchase {
             let receiptString = receiptData.base64EncodedString(options: [])
             debugPrint("Apple Purchase - success")
                     
-            if let introPrice = product.cbProduct.product.introductoryPrice?.price {
-                introOffers = CBProductDiscountIntroOffers(price: "\(introPrice)", type: product.cbProduct.product.introductoryPrice?.localizedPaymentMode, period: product.cbProduct.product.introductoryPrice?.localizedSubscriptionPeriod)
+            if let introPrice = product.cbProduct.product.introductoryPrice?.price,let units = product.cbProduct.product.introductoryPrice?.subscriptionPeriod.numberOfUnits {
+                introOffers = CBProductDiscountIntroOffers(price: "\(introPrice)", type: product.cbProduct.product.introductoryPrice?.localizedPaymentMode, period: "\(units)")
             }
 
             receipt = CBReceipt(name: product.localizedTitle, token: receiptString, productID: product.productIdentifier, price: "\(product.price)", currencyCode: currencyCode, period: product.subscriptionPeriod?.numberOfUnits ?? 0, periodUnit: Int(product.subscriptionPeriod?.unit.rawValue ?? 0),customer: customer,productType: self.productType ?? .unknown,introductoryOffer: introOffers)
@@ -381,41 +381,6 @@ class SKProductsRequestFactory {
     }
 
 }
-
-//extension SKProduct
-//{
-//
-//    var localizedPrice: String? {
-//        return priceFormatter(locale: priceLocale).string(from: price)
-//    }
-//
-//    private func priceFormatter(locale: Locale) -> NumberFormatter {
-//        let formatter = NumberFormatter()
-//        formatter.locale = locale
-//        formatter.numberStyle = .currency
-//        return formatter
-//    }
-//
-//    @available(iOSApplicationExtension 11.2, iOS 11.2, OSX 10.13.2, tvOS 11.2, watchOS 6.2, macCatalyst 13.0, *)
-//    var localizedSubscriptionPeriod: String {
-//        guard let subscriptionPeriod = self.subscriptionPeriod else { return "" }
-//
-//        let dateComponents: DateComponents
-//
-//        switch subscriptionPeriod.unit {
-//        case .day: dateComponents = DateComponents(day: subscriptionPeriod.numberOfUnits)
-//        case .week: dateComponents = DateComponents(weekOfMonth: subscriptionPeriod.numberOfUnits)
-//        case .month: dateComponents = DateComponents(month: subscriptionPeriod.numberOfUnits)
-//        case .year: dateComponents = DateComponents(year: subscriptionPeriod.numberOfUnits)
-//        @unknown default:
-//            print("WARNING: SwiftyStoreKit localizedSubscriptionPeriod does not handle all SKProduct.PeriodUnit cases.")
-//            // Default to month units in the unlikely event a different unit type is added to a future OS version
-//            dateComponents = DateComponents(month: subscriptionPeriod.numberOfUnits)
-//        }
-//
-//        return DateComponentsFormatter.localizedString(from: dateComponents, unitsStyle: .short) ?? ""
-//    }
-//}
 
 
 public extension SKProductDiscount {
@@ -443,8 +408,6 @@ public extension SKProductDiscount {
         case .month: dateComponents = DateComponents(month: subscriptionPeriod.numberOfUnits)
         case .year: dateComponents = DateComponents(year: subscriptionPeriod.numberOfUnits)
         @unknown default:
-            print("WARNING: SwiftyStoreKit localizedSubscriptionPeriod does not handle all SKProduct.PeriodUnit cases.")
-            // Default to month units in the unlikely event a different unit type is added to a future OS version
             dateComponents = DateComponents(month: subscriptionPeriod.numberOfUnits)
         }
         return DateComponentsFormatter.localizedString(from: dateComponents, unitsStyle: .full) ?? ""
@@ -453,19 +416,16 @@ public extension SKProductDiscount {
     var localizedPaymentMode: String{
         switch paymentMode {
         case .payAsYouGo:
-            return "payAsYouGo"
+            return "pay_as_you_go"
         case .payUpFront:
-            return "payUpFront"
+            return "pay_up_front"
         case .freeTrial:
-            return "freeTrial"
+            return ""
         @unknown default:
             return "unknown"
         }
     }
     
 }
-
-
-
 
 
