@@ -21,9 +21,9 @@ public class CBPurchase: NSObject {
     var restoredPurchasesCount = 0
     private var activeProduct: CBProduct?
     var customer: CBCustomer?
-    var introOffers: CBProductDiscountIntroOffers?
+    var introOffers: CBProductIntroOffers?
+    private var introOffersPeriod: String = ""
 
-    
     var restoreResponseHandler: ((Result<[InAppSubscription], RestoreError>) -> Void)?
     var refreshHandler: RestoreResultCompletion<String>?
     var includeInActiveProducts = false
@@ -354,9 +354,16 @@ public extension CBPurchase {
             
             let receiptString = receiptData.base64EncodedString(options: [])
             debugPrint("Apple Purchase - success")
-                    
-            if let introPrice = product.cbProduct.product.introductoryPrice?.price,let units = product.cbProduct.product.introductoryPrice?.subscriptionPeriod.numberOfUnits {
-                introOffers = CBProductDiscountIntroOffers(price: "\(introPrice)", type: product.cbProduct.product.introductoryPrice?.localizedPaymentMode, period: "\(units)")
+        
+            if let introPrice = product.introductoryPrice?.price,let numberOfUnits = product.introductoryPrice?.subscriptionPeriod.numberOfUnits , let numberOfPeriods = product.introductoryPrice?.numberOfPeriods {
+                
+                if product.introductoryPrice?.localizedPaymentMode == PaymentModeType.payAsYouGo.description {
+                    introOffersPeriod = String(numberOfUnits * numberOfPeriods)
+                }else{
+                    let introOfferDuration =  StoreSubscriptionPeriod().getSubscriptionPeriodForPayUpFront(product: product)
+                    introOffersPeriod = String(introOfferDuration.rawValue)
+                }
+                introOffers = CBProductIntroOffers(price: "\(introPrice)", type: product.cbProduct.product.introductoryPrice?.localizedPaymentMode, period: introOffersPeriod)
             }
 
             receipt = CBReceipt(name: product.localizedTitle, token: receiptString, productID: product.productIdentifier, price: "\(product.price)", currencyCode: currencyCode, period: product.subscriptionPeriod?.numberOfUnits ?? 0, periodUnit: Int(product.subscriptionPeriod?.unit.rawValue ?? 0),customer: customer,productType: self.productType ?? .unknown,introductoryOffer: introOffers)
@@ -381,51 +388,3 @@ class SKProductsRequestFactory {
     }
 
 }
-
-
-public extension SKProductDiscount {
-    
-    /// The formatted discount price of the product using the local currency.
-    var localizedPrice: String? {
-        return priceFormatter(locale: priceLocale).string(from: price)
-    }
-    
-    private func priceFormatter(locale: Locale) -> NumberFormatter {
-        let formatter = NumberFormatter()
-        formatter.locale = locale
-        formatter.numberStyle = .currency
-        return formatter
-    }
-    
-    /// The formatted, localized period / date for the product discount.
-    /// - note: The subscription period for the discount is independent of the product's regular subscription period, and does not have to match in units or duration.
-    var localizedSubscriptionPeriod: String {
-        let dateComponents: DateComponents
-        
-        switch subscriptionPeriod.unit {
-        case .day: dateComponents = DateComponents(day: subscriptionPeriod.numberOfUnits)
-        case .week: dateComponents = DateComponents(weekOfMonth: subscriptionPeriod.numberOfUnits)
-        case .month: dateComponents = DateComponents(month: subscriptionPeriod.numberOfUnits)
-        case .year: dateComponents = DateComponents(year: subscriptionPeriod.numberOfUnits)
-        @unknown default:
-            dateComponents = DateComponents(month: subscriptionPeriod.numberOfUnits)
-        }
-        return DateComponentsFormatter.localizedString(from: dateComponents, unitsStyle: .full) ?? ""
-    }
-    
-    var localizedPaymentMode: String{
-        switch paymentMode {
-        case .payAsYouGo:
-            return "pay_as_you_go"
-        case .payUpFront:
-            return "pay_up_front"
-        case .freeTrial:
-            return ""
-        @unknown default:
-            return "unknown"
-        }
-    }
-    
-}
-
-

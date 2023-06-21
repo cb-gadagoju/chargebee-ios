@@ -62,7 +62,11 @@ class CBValidateReceiptResource: CBAPIResource {
         self.baseUrl = CBEnvironment.baseUrl
         self.requestBody = PayloadBody(receipt: receipt.token, productId: receipt.productID, name: receipt.name,
                                        price: receipt.price, currencyCode: receipt.currencyCode,
-                                       customerId: receipt.customer?.customerID ?? "", period: "\(receipt.period)", periodUnit: "\(receipt.periodUnit)",firstName: receipt.customer?.firstName ?? "",lastName: receipt.customer?.lastName ?? "", email: receipt.customer?.email ?? "",introPrice: receipt.introductoryOffer?.price ?? "",type: receipt.introductoryOffer?.type ?? "",introPeriod: receipt.introductoryOffer?.period ?? "")
+                                       customerId: receipt.customer?.customerID ?? "", period: "\(receipt.period)", periodUnit: "\(receipt.periodUnit)",firstName: receipt.customer?.firstName ?? "",lastName: receipt.customer?.lastName ?? "", email: receipt.customer?.email ?? "",introOfferPrice: receipt.introductoryOffer?.price ?? "",introOfferType: receipt.introductoryOffer?.type ?? "",introOfferPeriod: receipt.introductoryOffer?.period ?? "")
+        
+        if let requ = self.requestBody {
+            debugPrint("Request Boday",requ)
+        }
     }
 
 }
@@ -79,9 +83,9 @@ struct PayloadBody: URLEncodedRequestBody {
     let firstName: String
     let lastName: String
     let email: String
-    var introPrice: String
-    var type: String
-    var introPeriod: String
+    var introOfferPrice: String
+    var introOfferType: String
+    var introOfferPeriod: String
 
     func toFormBody() -> [String: String] {
         [
@@ -96,9 +100,9 @@ struct PayloadBody: URLEncodedRequestBody {
             "customer[first_name]": firstName,
             "customer[last_name]": lastName,
             "customer[email]": email,
-            "introductory_offer[price_in_decimal]": introPrice,
-            "introductory_offer[type]": type,
-            "introductory_offer[period]": introPeriod
+            "introductory_offer[price_in_decimal]": introOfferPrice,
+            "introductory_offer[type]": introOfferType,
+            "introductory_offer[period]": introOfferPeriod
         ]
     }
 }

@@ -23,7 +23,7 @@ public struct CBCustomer{
     }
 }
 
-struct CBProductDiscountIntroOffers{
+struct CBProductIntroOffers{
     var price: String?
     var type: String?
     var period: String?
@@ -32,6 +32,5 @@ struct CBProductDiscountIntroOffers{
         self.type = type
         self.period = period
     }
-
 }
 
